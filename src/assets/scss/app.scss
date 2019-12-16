@@ -1,0 +1,50 @@
+@import 'node_modules/bootstrap/scss/bootstrap';
+$font-stack:  'Avenir', Helvetica, Arial, sans-serif;
+$primary-color: black;
+*{
+    border: 1px solid red;
+}
+.headline {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    //width: 0px;
+    margin: 0 auto;
+    color:black;
+    margin-top
+    : 30px;
+    background-color: #5764eb;
+}
+.dropdown{
+    position: relative;
+    display: inline-block;
+    color:peachpuff;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #9457eb;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 12px;
+}
+.dropdown-content a {
+    color: peachpuff;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+.dropdown-content a:hover {background-color: #64eb57;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #64eb57;}
+.dropbtn {
+    background-color: #9457eb;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    border-radius: 12px;
+  }
