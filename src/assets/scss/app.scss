@@ -1,8 +1,14 @@
 @import 'node_modules/bootstrap/scss/bootstrap';
 $font-stack:  'Avenir', Helvetica, Arial, sans-serif;
 $primary-color: black;
-*{
-    border: 1px solid red;
+// *{
+//     border: 1px solid red;
+// }
+.fontcolor{
+    color:peachpuff;
+}
+.fontbold{
+  font-weight: 600;
 }
 .headline {
     -webkit-font-smoothing: antialiased;
@@ -11,35 +17,41 @@ $primary-color: black;
     //width: 0px;
     margin: 0 auto;
     color:black;
-    margin-top
-    : 30px;
     background-color: #5764eb;
 }
 .dropdown{
     position: relative;
     display: inline-block;
-    color:peachpuff;
-}
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #9457eb;
-    min-width: 160px;
+    color:gray;
+    min-width: 260px;
+    min-height:50px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
-    border-radius: 12px;
+    border-radius: 4px;
+    text-align:center;
 }
-.dropdown-content a {
-    color: peachpuff;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
-.dropdown-content a:hover {background-color: #64eb57;}
+.dropdown option{
+  color: peachpuff;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  background-color: #9457eb;
+}
 
-.dropdown:hover .dropdown-content {display: block;}
+.dropdown option:hover {background-color: #64eb57;}
 
-.dropdown:hover .dropbtn {background-color: #64eb57;}
+//.dropdown:hover {display: block;}
+.dropdown>option:hover
+    {
+        color: #64eb57;
+        cursor: pointer;
+    }
+
+
+.dropdown:hover .dropbtn{background-color: #64eb57;}
+
+//dropdown menu
+
 .dropbtn {
     background-color: #9457eb;
     color: white;
@@ -47,4 +59,144 @@ $primary-color: black;
     font-size: 16px;
     border: none;
     border-radius: 12px;
+    width:200px;
   }
+  .subbtn {
+    background-color: #9457eb;
+    color: peachpuff;
+    padding: 1px;
+    font-size: 12px;
+    border: none;
+    border-radius: 5px;
+    width:80px;
+    height:42px;
+  }
+  .subbtn:hover {background-color: #64eb57;}
+  .fontsizebig{
+    font-size:20px;
+}
+hr { 
+    display: block;
+    //margin-top: 0.5em;
+    //margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    //border-style: inset;
+    border-width: 5px;
+    color:black;
+  }
+/* The container */
+.containerCheck {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .containerCheck input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .containerCheck:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .containerCheck input:checked ~ .checkmark {
+    background-color: #57eb94;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .containerContainer input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .containerCheck .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  .dropselect{
+    position: relative;
+    display: inline-block;
+    color:gray;
+    min-width: 260px;
+    min-height:40px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 2px;
+}
+.dropselect option {
+    //display: none;
+    position: absolute;
+    background-color: #9457eb;
+    min-width: 260px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 12px;
+}
+.dropselect option:hover {
+    color: #000; 
+    box-shadow: inset 20px 20px #64eb57;
+  }
+.dropselect:focus{
+    border-color:  #64eb57;
+    outline:none;
+}
+.active-pink{
+    border-radius:12px;
+}
+.active-pink input[type=text]:focus:not([readonly]) {
+    border-bottom: 1px solid #ebde57;
+    box-shadow: 0 1px 0 0 #64eb57;
+    
+ }
+ .active-pink input[type=text] {
+    border-bottom: 1px solid #ebde57;
+    box-shadow: 0 1px 0 0 #64eb57;
+}
+.active-pink .fa, .active-pink-2 .fa {
+    color: black;
+}
+.country{
+  cursor: pointer;
+}
+.featurebody{
+  background-color: #ebde57;
+}
