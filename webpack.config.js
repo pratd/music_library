@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const { join, resolve } = require('path');
 const HTMLWebpackPlugin  = require('html-webpack-plugin');
+var path = require('path');
 //const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 //require('infinite-scroll');
 require('es6-promise').polyfill();
@@ -58,8 +59,17 @@ module.exports= {
                     }
                     
                 ]
-            } 
+            },
+            { test: /\.(jpe?g|png|gif)$/i, loader:"file" },
         ]
+    },
+    resolve: {
+        alias:{
+            // bind version of jquery-ui
+            "jquery-ui": "jquery-ui/jquery-ui.js",      
+            // bind to modules;
+            modules: path.join(__dirname, "node_modules"),
+        }
     },
     plugins:[
       
@@ -70,7 +80,8 @@ module.exports= {
         }),
         new webpack.ProvidePlugin({
             $: "jquery",
-            jQuery: "jquery"
+            jQuery: "jquery",
+            "window.jQuery":"jquery"
           })
         //new FaviconsWebpackPlugin()
     ]

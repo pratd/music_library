@@ -1,4 +1,4 @@
-class musicVideo{
+export class musicVideo{
     constructor(cover, nameOfSong, name, price, date, length, genre, sample, link){
         this.cover = cover;
         this.nameOfSong = nameOfSong;
@@ -11,5 +11,3 @@ class musicVideo{
         this.linkVideo = link;
     }
 }
-
-export default musicVideo;

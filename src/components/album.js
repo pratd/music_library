@@ -1,4 +1,4 @@
-class album {
+export class album {
     constructor(cover, albumName, name, price, number, date, genre ){
         this.cover = cover;
         this.albumName = albumName;
@@ -9,5 +9,3 @@ class album {
         this.musicGenre = genre;
     }
 }
-
-export default album;

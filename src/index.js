@@ -6,69 +6,76 @@ import $ from 'jquery';
 
 import {getCountrycode, getRequests} from './components/requests.js';
 import {autocomplete, countries} from './components/autocomplete.js';
-import {searchbox} from './components/search.js';
-import {artistClass} from './components/artist.js';
-import {musicVideo} from './components/music_video.js';
-import {songs} from './components/songs.js';
-import {album} from './components/album.js';
-//initiate the submit click button and get the values from the search boxes;
-//check if the submit options have been checked or not
-const checkedOrNot = function(){
-    var x = document.getElementById('countryCheck').checked;
-    var y = document.getElementById('explicitCheck').checked;
-    var z = document.getElementById('limitCheck').checked;
-    return [x,y,z];
-};
+import {find} from './components/find.js'
+import {inputData} from './components/inputData.js';
+
 // ready the get function once the user has submitted
-const inputData = function() {
-    let searchName = $('#searchItems').val();  
-    let countryName = "";
-    let explicitContent = "";
-    let limits = "";
-    let songType=$('#songType').val();
-    let inputSearch = new searchbox();
+const outputData = function() {
+    //get the input search object
+    let inputSearch = find();//finds all the key values pressed or changed
+    let options = {
+        term: inputSearch.term,
+        country: inputSearch.country,
+        type: inputSearch.type,
+        limit: inputSearch.limit,
+        content: inputSearch.content
+    };
+    //change the parameter type for the search term based on what is allowed in the API
+    switch (options.type) {
+        case 'artists':
+            options.type='musicArtist';
+            break;
     
+        case 'songs':
+            options.type='song';
+            break;
+        case 'albums':
+            options.type='album';
+            break;
+        default:
+            options.type='musicVideo';
+    }
+    //console.log(options)
     
-    //checking if the checkboxes are checked or not
-    let checksResult = checkedOrNot();
-    if(checksResult[0]){
-        countryName = $('#country').val();   
+    //callback the search function based on the search required
+     if( inputSearch.country && inputSearch.country !=''){
+        getCountrycode(inputSearch.country, (err,results)=>{
+            if(err){console.log('error in getting country requests');}
+            options.country=results; //store in the options object for use later
+            //console.log(results); //call back function is executed and run here, giving the value of the results
+
+        });
+    }else{
+        alert('Enter Region of search, REQUIRED!');
     }
-    if(checksResult[1]){
-        explicitContent = $('#explicitContent').val();   
+    if (inputSearch.term && inputSearch.term !=''){
+        //inputSearch.term = inputSearch.term.trim();
+        getRequests(options.term, options.country, options.type, options.limit, options.content, (error, response)=>{
+            if(error){console.log("error getting song requests");}
+            let responseValue = response.results;
+            let objectArray= inputData(responseValue, options.type);
+            //console.log(objectArray);
+            //console.log(responseValue.results, typeof responseValue.results);
+        });
+        //get the response
+       }
+    else {
+        alert('Please enter a valid search term');
     }
-    if(checksResult[2]){
-        limits = $(songlimit).val(); 
-    }
-    //put the values of search items in the seachbox object
-    inputSearch.country=countryName; //adding the country name to searhc object
-    inputSearch.content= explicitContent;//adding explicit content
-    inputSearch.limit = limits;//adding limits
-    inputSearch.term= searchName;//adding search term
-    inputSearch.type= songType;
-    console.log(inputSearch);
-    // if( countryName && countryName !=''){
-    //     //getCountrycode('spain');
-        
-    // }else{
-    //     alert('Enter Region of search, REQUIRED!');
-    // }
-    // if (searchName && searchName !=''){
-    //     searchName = searchName.trim();
-    //     //
-    //    }
-    // else {
-    //     alert('Please enter a valid search term');
-    // }
    
 };
 
+
+//ready the document and run the functions when ready
 $(document).ready(function(){
     /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
     autocomplete(document.getElementById("country"), countries);
+    // $( "#country" ).autocomplete({
+    //     source:countries
+    // });
     //get all the elements from various checkboxes and store in the search item
     $('#submitterm').click(function(){
-        inputData();
+        outputData();
     });
    
 });

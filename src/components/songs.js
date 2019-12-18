@@ -1,4 +1,4 @@
-class songs{
+export class song{
     constructor(cover, songName, name, albumName, price, date, length, genre, sample, link){
         this.cover = cover;
         this.nameOfSong= songName;
@@ -12,5 +12,3 @@ class songs{
         this.songLink = link;
     }
 }
-
-export default songs;
