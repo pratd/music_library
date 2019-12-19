@@ -6,9 +6,10 @@ import $ from 'jquery';
 
 import {getCountrycode, getRequests} from './components/requests.js';
 import {autocomplete, countries} from './components/autocomplete.js';
-import {find} from './components/find.js'
+import {find} from './components/find.js';
 import {inputData} from './components/inputData.js';
-
+//for rendering objects
+import {renderingObjects} from './components/render.js';
 // ready the get function once the user has submitted
 const outputData = function() {
     //get the input search object
@@ -25,7 +26,6 @@ const outputData = function() {
         case 'artists':
             options.type='musicArtist';
             break;
-    
         case 'songs':
             options.type='song';
             break;
@@ -35,27 +35,26 @@ const outputData = function() {
         default:
             options.type='musicVideo';
     }
-    //console.log(options)
-    
+   
     //callback the search function based on the search required
-     if( inputSearch.country && inputSearch.country !=''){
+    if( inputSearch.country && inputSearch.country !=''){
         getCountrycode(inputSearch.country, (err,results)=>{
             if(err){console.log('error in getting country requests');}
             options.country=results; //store in the options object for use later
-            //console.log(results); //call back function is executed and run here, giving the value of the results
-
+             //call back function is executed and run here, giving the value of the results
         });
     }else{
         alert('Enter Region of search, REQUIRED!');
     }
     if (inputSearch.term && inputSearch.term !=''){
-        //inputSearch.term = inputSearch.term.trim();
         getRequests(options.term, options.country, options.type, options.limit, options.content, (error, response)=>{
             if(error){console.log("error getting song requests");}
             let responseValue = response.results;
             let objectArray= inputData(responseValue, options.type);
-            //console.log(objectArray);
-            //console.log(responseValue.results, typeof responseValue.results);
+            //console.log(objectArray); 
+            //rendering objects
+            let ItemSelector = $('.app');
+            renderingObjects(objectArray,ItemSelector,options.type);
         });
         //get the response
        }
@@ -65,14 +64,13 @@ const outputData = function() {
    
 };
 
-
 //ready the document and run the functions when ready
 $(document).ready(function(){
-    /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+    /*clear windows local storage when the webpage is instantiated*/
+    window.localStorage.clear();
+    /*initiate the autocomplete function on the element, and pass along the countries array as possible autocomplete values:*/
     autocomplete(document.getElementById("country"), countries);
-    // $( "#country" ).autocomplete({
-    //     source:countries
-    // });
+    
     //get all the elements from various checkboxes and store in the search item
     $('#submitterm').click(function(){
         outputData();

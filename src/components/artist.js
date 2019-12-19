@@ -1,7 +1,7 @@
 export class artistClass{
     constructor(firstName, musicGenre, ArtistLink ){
         this.firstName = firstName;
-        this.genre = musicGenre;
+        this.musicGenre = musicGenre;
         this.link = ArtistLink;
     }
 }
