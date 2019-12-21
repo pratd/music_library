@@ -1,14 +1,25 @@
 //let itemsElement = $('app');
 function renderingObjects(objectArray,itemsElement, type){
+    let divCardTop = $('<div class=" text-center"></div>');
     //loop through the items 
-    let divCardParent = $('<div class="card-columns text-center"></div>'); //parent card element
+    let divCardParent1 = $('<div class="card-columns text-center"></div>'); //parent card element 1
+    let divCardParent2 = $('<div class=" text-center" id="Parent"></div>'); //parent card element 1
+    //make a card place for favourites
+    let divCardRow = $('<div class="row pl-0 pr-0"></div>');
+    let divCardCol1 = $('<div class="col-sm-9"></div>');
+    let divCardCol2 = $('<div class="col-sm-3" id="Col2"></div>');
+    let cardBody = $(itemsElement.html(divCardTop));
+    divCardTop.append(divCardRow);
+    //append the cols
+    divCardRow.append(divCardCol1);
+    divCardRow.append(divCardCol2);
+    divCardCol1.append(divCardParent1);
+    divCardCol2.append(divCardParent2);
     let index = 0; //index for use
     objectArray.forEach(element => {
-        
-        let cardBody = $(itemsElement.html(divCardParent));
 
         let cardElement= $('<div id="cardElement_'+ index + '"class="card"></div>'); //child card element
-        divCardParent.append(cardElement);
+        divCardParent1.append(cardElement);
         
         //make a  bookmark at the top right corner
         //let cardElementBookmark = $('<div class="bookmarkRibbon" id="bookmark_"'+index+'"><span style="color:white;position: relative;top: -9px;text-align: center;right: -10px;">⭐</span></div>');
@@ -22,13 +33,13 @@ function renderingObjects(objectArray,itemsElement, type){
         let cardCover=null;
         switch (type) {
             case 'musicArtist':
-                cardTitle = $('<h3 class="fontusetitle cardTitle pb-2 pt-2">'+element.firstName+'</h3>');
+                cardTitle = $('<h3 class="fontusetitle cardTitle pb-2 pt-2" id="Name_'+index+'">'+element.firstName+'</h3>');
                 
                 break;
         
             default:
-                cardTitle = $('<h3 class="fontusetitle cardTitle pb-2 pt-2">'+element.artistName+'</h3>'); //add name on the top
-                cardCover = $('<img src="'+element.cover+'" class="img-fluid card-img-top thumbImage" alt="image"></img>'); //add cover pic if exists
+                cardTitle = $('<h3 class="fontusetitle cardTitle pb-2 pt-2" id="Name_'+index+'">'+element.artistName+'</h3>'); //add name on the top
+                cardCover = $('<img src="'+element.cover+'" class="img-fluid card-img-top thumbImage" alt="image" id="Cover_"'+index+'"></img>'); //add cover pic if exists
                 break;
         }
 
@@ -167,12 +178,23 @@ function AddtoFavorites() {
     if (!window.localStorage.getItem('element_id_'+attrofBookmark.slice(-2))){
         //if the favourite does not exist add to favourites
         window.localStorage.setItem('element_id_'+attrofBookmark.slice(-2), attrofBookmark);
+        renderFavourites(attrofBookmark.slice(-2));
     }else
     {      //otherwise delete it
         window.localStorage.removeItem('element_id_'+attrofBookmark.slice(-2));
+        //deleteFavourites(attrofBookmark.slice(-2));
     }
     
     
 }
+function renderFavourites(index){
+    let divCardCol= $('#Parent');
+    //let cardElement= $('<div class="card"></div>'); //child card element
+   // divCardCol.append(cardElement);
 
+    let cardTitle = $('#Name_'+index);
+    //let cardCover=$('#Cover_'+index);
+    divCardCol.append(cardTitle);
+    //cardElement.append(cardCover);
+}
 export {renderingObjects};
