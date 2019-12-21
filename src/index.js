@@ -53,6 +53,7 @@ const outputData = function() {
             let objectArray= inputData(responseValue, options.type);
             //console.log(objectArray); 
             //rendering objects
+            
             let ItemSelector = $('.app');
             renderingObjects(objectArray,ItemSelector,options.type);
         });

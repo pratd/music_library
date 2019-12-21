@@ -226,7 +226,7 @@ hr {
 }
 .bordertest{
  // border:1px solid black;
-  margin: 0 35%;
+  margin: 0 33%;
 }
 .fontuse{
   font-size:20px;
@@ -237,4 +237,48 @@ hr {
   font-size:15x;
   font-weight: 500;
   color:black;
+}
+.offsetCol{
+  margin-left: 20%;
+}
+
+.ribbon {
+  width: 0px;
+  height: 35px;
+  background-color: transparent;
+  position: absolute;
+  top: -5px;
+  right: 20px;
+  border: solid 15px #5764eb;
+  border-bottom: solid 15px transparent;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.ribbon:hover {
+  height: 65px;
+}
+
+.ribbon:active {
+  /*
+  ---- Transform stretch: ----
+  (Less pretty)
+  
+  transform: translate(0, 20px)
+             scale(0.8, 1.4);
+ 
+  
+  ---- width/height adjust stretch: ----
+  (More choppy)
+  
+  height: 180px;
+  border-left: solid 10px #B13A22;
+  border-right: solid 10px #B13A22;
+  right: 25px;
+  */
+  
+  border-color: #25094d;
+  border-bottom-color: transparent;
 }
