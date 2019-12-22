@@ -4,6 +4,7 @@ function renderingObjects(objectArray,itemsElement, type){
     //loop through the items 
     let divCardParent1 = $('<div class="card-columns text-center"></div>'); //parent card element 1
     let divCardParent2 = $('<div class=" text-center" id="Parent"></div>'); //parent card element 1
+    let divCardParent2Title = $('<h2 class="fontusetitle cardTitle" >Favourites</h3>');
     //make a card place for favourites
     let divCardRow = $('<div class="row pl-0 pr-0"></div>');
     let divCardCol1 = $('<div class="col-sm-9"></div>');
@@ -14,7 +15,11 @@ function renderingObjects(objectArray,itemsElement, type){
     divCardRow.append(divCardCol1);
     divCardRow.append(divCardCol2);
     divCardCol1.append(divCardParent1);
+    divCardParent2.append(divCardParent2Title);
     divCardCol2.append(divCardParent2);
+
+    //make some decorations in divCardCol2
+
     let index = 0; //index for use
     objectArray.forEach(element => {
 
@@ -28,22 +33,36 @@ function renderingObjects(objectArray,itemsElement, type){
         cardElementBookmark.attr('elementid', 'book_'+index);
         cardElement.append(cardElementBookmark);
         //add click to an element
-        $('div').on('click', '#ribbon_'+index, AddtoFavorites);
-        let cardTitle = "";
+        
+        $('#ribbon_'+index).click(AddtoFavorites);
+         
+
+        let cardTitle =null;
         let cardCover=null;
+        let cardTitleFav = null;
+        let cardCoverFav=null;
         switch (type) {
             case 'musicArtist':
-                cardTitle = $('<h3 class="fontusetitle cardTitle pb-2 pt-2" id="Name_'+index+'">'+element.firstName+'</h3>');
-                
+                cardTitle = $('<h3 class="fontusetitle cardTitle pb-2 pt-2">'+element.firstName+'</h3>');
+                cardTitleFav = $('<h3 class="fontusetitle cardTitle" id="Name_'+index+'">'+element.firstName+'</h3>'); //store the favourite variableS
+                cardTitleFav.css("display", "none");
                 break;
         
             default:
-                cardTitle = $('<h3 class="fontusetitle cardTitle pb-2 pt-2" id="Name_'+index+'">'+element.artistName+'</h3>'); //add name on the top
-                cardCover = $('<img src="'+element.cover+'" class="img-fluid card-img-top thumbImage" alt="image" id="Cover_"'+index+'"></img>'); //add cover pic if exists
+                cardTitle = $('<h3 class="fontusetitle cardTitle pb-2 pt-2">'+element.artistName+'</h3>'); //add name on the top
+                cardTitleFav = $('<h3 class="fontusetitle cardTitle" id="Name_'+index+'">'+element.artistName+'</h3>'); //store the favourite variable
+                cardTitleFav.css("display", "none");
+                cardCover = $('<img src="'+element.cover+'" class="img-fluid card-img-top thumbImage" alt="image"></img>'); //add cover pic if exists
+                cardCoverFav = $('<img src="'+element.cover+'" class="img-fluid card-img-top thumbImage" alt="image" id="Cover_'+index+'"></img>');//add favourite cpver pic
+                cardCoverFav.css("display", "none");
                 break;
         }
 
         cardElement.append(cardTitle);
+        cardElement.append(cardTitleFav); //store the favourite variable
+        if (cardCoverFav){
+            cardElement.append(cardCoverFav); //store the favourite variable
+        }
         if(cardCover){      //add the cover pic if there:
             cardElement.append(cardCover);
         }
@@ -174,27 +193,41 @@ Number.prototype.pad = function(size) {  //padding  the seconds in case of singl
 
 function AddtoFavorites() {
     var attrofBookmark = $(this).attr('elementid');
+    
     // console.log(attrofBookmark);
-    if (!window.localStorage.getItem('element_id_'+attrofBookmark.slice(-2))){
-        //if the favourite does not exist add to favourites
-        window.localStorage.setItem('element_id_'+attrofBookmark.slice(-2), attrofBookmark);
-        renderFavourites(attrofBookmark.slice(-2));
+    if (window.localStorage.getItem('element_id_'+ attrofBookmark.slice(attrofBookmark.indexOf("_")+1,attrofBookmark.length))!== null){
+        //otherwise delete it
+        
+        window.localStorage.removeItem('element_id_'+attrofBookmark.slice(attrofBookmark.indexOf("_")+1,attrofBookmark.length));
+        deleteFavourites(attrofBookmark.slice(attrofBookmark.indexOf("_")+1,attrofBookmark.length));
     }else
-    {      //otherwise delete it
-        window.localStorage.removeItem('element_id_'+attrofBookmark.slice(-2));
-        //deleteFavourites(attrofBookmark.slice(-2));
+    {      
+        //if the favourite does not exist add to favourites
+        window.localStorage.setItem('element_id_'+attrofBookmark.slice(attrofBookmark.indexOf("_")+1,attrofBookmark.length), attrofBookmark);
+        renderFavourites(attrofBookmark.slice(attrofBookmark.indexOf("_")+1,attrofBookmark.length));
+        
     }
     
     
 }
 function renderFavourites(index){
-    let divCardCol= $('#Parent');
-    //let cardElement= $('<div class="card"></div>'); //child card element
-   // divCardCol.append(cardElement);
+    let divCardColFav= $('#Parent');
+    let cardElementFav= $('<div class="cardFav text-center" id="cardFav_'+index+'"></div>'); //child card element
+    console.log('1');
+    divCardColFav.append(cardElementFav);
 
-    let cardTitle = $('#Name_'+index);
-    //let cardCover=$('#Cover_'+index);
-    divCardCol.append(cardTitle);
-    //cardElement.append(cardCover);
+    let cardTitleFav = $('#Name_'+index);
+    cardTitleFav.css("display", "block");
+    let cardCoverFav=$('#Cover_'+index);
+    cardCoverFav.css("display", "block");
+    cardCoverFav.addClass('text-center');
+    cardElementFav.append(cardTitleFav);
+    cardElementFav.append(cardCoverFav);
+}
+function deleteFavourites(index){
+    let divCardColFav= $('#cardFav_'+index);
+    divCardColFav.css("display","none");
+    let divCardCoverFav =  $('#Cover_'+index);
+    divCardCoverFav.css("display","none");
 }
 export {renderingObjects};
