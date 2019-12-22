@@ -17,4 +17,9 @@ Third party libraries like jquery and bootstrap where managed through NPM packag
   }
   ```
   
-  The website's html were dynamically generated except the main search and option boxes. The code was validated using w3c validator. 
+  The website's html were dynamically generated except the main search and option boxes. The code was validated using w3c validator. The tools used were;
+  1. ajax
+  2. jquery
+  3. audio and video controls fro jquery
+  4. NPM
+  5. Webpack
