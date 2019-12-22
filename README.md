@@ -1,5 +1,5 @@
 ﻿# music_library
-This small project uses jquery and ajax to showcase a music library. The [Apple itunes api] (https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/) was used for this. A separate [country api] (https://developer.tuxx.co.uk/api-overview/country-iso) was used for country codes to be used for the itunes api. The api key and the apiId has been deleted for protection. Please use your **own api key** for the service.
+This small project uses jquery and ajax to showcase a music library. The [Apple itunes api](https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/) was used for this. A separate [country api](https://developer.tuxx.co.uk/api-overview/country-iso) was used for country codes to be used for the itunes api. The api key and the apiId has been deleted for protection. Please use your **own api key** for the service.
 
 Third party libraries like jquery and bootstrap where managed through NPM package install manager and WEBPACK bundle manager. Some of the dependencies could be seen as :
 ```
